@@ -17,13 +17,12 @@
   </div>
 
   <div>
-    <%= form.label :user_id, style: "display: block" %>
-    <%= form.text_field :user_id %>
-  </div>
+    <%= form.label :amount, style:"display: block"%>
+    <%= form.number_field :amount, step: '0.01' %>
 
   <div>
-    <%= form.label :category_id, style: "display: block" %>
-    <%= form.collection_select :category_id, Category.all, :id, :name, include_blank: true, prompt: "Select a category", class: "form-control" %>
+    <%= form.label :category_ids, style: "display: block" %>
+    <%= form.collection_check_boxes :category_ids, Category.all, :id, :name, prompt: "Select a category", class: "form-control" %>
   </div>
 
   <div>

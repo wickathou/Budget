@@ -22,7 +22,7 @@ class EntriesController < ApplicationController
   # POST /entries or /entries.json
   def create
     @entry = Entry.new(entry_params)
-
+    @entry.user = current_user
     respond_to do |format|
       if @entry.save
         format.html { redirect_to entry_url(@entry), notice: "Entry was successfully created." }
@@ -65,6 +65,6 @@ class EntriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def entry_params
-      params.require(:entry).permit(:name, :user_id)
+      params.require(:entry).permit(:name, :amount, category_ids: [])
     end
 end
