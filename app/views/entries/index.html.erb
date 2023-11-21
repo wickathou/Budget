@@ -1,6 +1,13 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Entries</h1>
+<h1>Transactions</h1>
+
+<% if @total_amount %>
+  <p>
+    <strong>Total spent:</strong>
+    <%= @total_amount %>
+  </p>
+<% end %>
 
 <div id="entries">
   <% @entries.each do |entry| %>
@@ -11,4 +18,8 @@
   <% end %>
 </div>
 
-<%= link_to "New entry", new_entry_path %>
+<% if params[:category_id].present? %>
+  <%= link_to "Add a new transaction entry", new_category_entry_path(params[:category_id]), class:'btn btn-primary' %>
+<% else %>
+  <%= link_to "Add a new transaction entry", new_entry_path, class:'btn btn-primary' %>
+<% end %>

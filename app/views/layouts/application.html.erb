@@ -34,6 +34,10 @@
       </nav>
     </header>
     <div class='container'>
+      <% if user_signed_in? %>
+        <p>Signed in as <%= current_user.name %></p>
+        <%= link_to "Back", "javascript:history.back()", class: 'btn btn-link'%>
+      <% end %>
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
     <div>

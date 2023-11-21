@@ -8,7 +8,10 @@
     <p>
       <%= link_to "Show this category", category %>
     </p>
+    <p>
+      <%= link_to "Show all transactions", category_entries_path(category) %>
+    </p>
   <% end %>
 </div>
 
-<%= link_to "New category", new_category_path %>
+<%= link_to "Add new category", new_category_path, class:'btn btn-primary' %>

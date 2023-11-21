@@ -4,7 +4,13 @@ class EntriesController < ApplicationController
 
   # GET /entries or /entries.json
   def index
-    @entries = Entry.all.includes(:categories).order(created_at: :desc).where(user_id: current_user.id)
+    if params[:category_id].present?
+      category = Category.find(params[:category_id])
+      @entries = category.entries.includes(:categories).order(created_at: :desc).where(user_id: current_user.id)
+      @total_amount = @entries.sum(:amount)
+    else
+      @entries = Entry.all.includes(:categories).order(created_at: :desc).where(user_id: current_user.id)
+    end
   end
 
   # GET /entries/1 or /entries/1.json
@@ -14,6 +20,7 @@ class EntriesController < ApplicationController
   # GET /entries/new
   def new
     @entry = Entry.new
+    @entry.categories << Category.find(params[:category_id]) if params[:category_id].present?
     @categories = Category.all.order(created_at: :desc).where(user_id: current_user.id)
   end
 
@@ -25,9 +32,14 @@ class EntriesController < ApplicationController
   def create
     @entry = Entry.new(entry_params)
     @entry.user = current_user
+    @categories = Category.all.order(created_at: :desc).where(user_id: current_user.id) unless @entry.save
     respond_to do |format|
       if @entry.save
-        format.html { redirect_to entry_url(@entry), notice: "Entry was successfully created." }
+        if params[:category_id].present?
+          format.html { redirect_to category_entries_url(params[:category_id]), notice: "Entry was successfully created." }
+        else
+          format.html { redirect_to entry_url(@entry), notice: "Entry was successfully created." }
+        end
         format.json { render :show, status: :created, location: @entry }
       else
         format.html { render :new, status: :unprocessable_entity }

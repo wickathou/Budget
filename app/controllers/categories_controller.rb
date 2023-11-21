@@ -14,6 +14,7 @@ class CategoriesController < ApplicationController
   # GET /categories/new
   def new
     @category = Category.new
+    set_icons
   end
 
   # GET /categories/1/edit
@@ -24,9 +25,10 @@ class CategoriesController < ApplicationController
   def create
     @category = Category.new(category_params)
     @category.user = current_user
+    set_icons unless @category.save
     respond_to do |format|
       if @category.save
-        format.html { redirect_to category_url(@category), notice: "Category was successfully created." }
+        format.html { redirect_to categories_url, notice: "Category was successfully created." }
         format.json { render :show, status: :created, location: @category }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -62,6 +64,10 @@ class CategoriesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_category
       @category = Category.find(params[:id])
+    end
+
+    def set_icons
+      @icons = ['🏛️','🍴','🏠', '🏫','🗑️', '🧾', '💰', '🍹', '✈️', '🚗', '🚇']
     end
 
     # Only allow a list of trusted parameters through.
