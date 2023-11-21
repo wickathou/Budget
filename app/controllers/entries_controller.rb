@@ -1,9 +1,10 @@
 class EntriesController < ApplicationController
+  load_and_authorize_resource
   before_action :set_entry, only: %i[ show edit update destroy ]
 
   # GET /entries or /entries.json
   def index
-    @entries = Entry.all
+    @entries = Entry.all.includes(:categories).order(created_at: :desc).where(user_id: current_user.id)
   end
 
   # GET /entries/1 or /entries/1.json
@@ -13,6 +14,7 @@ class EntriesController < ApplicationController
   # GET /entries/new
   def new
     @entry = Entry.new
+    @categories = Category.all.order(created_at: :desc).where(user_id: current_user.id)
   end
 
   # GET /entries/1/edit
