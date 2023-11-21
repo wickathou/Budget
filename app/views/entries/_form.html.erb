@@ -22,6 +22,11 @@
   </div>
 
   <div>
+    <%= form.label :category_id, style: "display: block" %>
+    <%= form.collection_select :category_id, Category.all, :id, :name, include_blank: true, prompt: "Select a category", class: "form-control" %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
