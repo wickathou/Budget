@@ -1,0 +1,22 @@
+<div id="<%= dom_id entry %>">
+  <p>
+    <strong>Name:</strong>
+    <%= entry.name %>
+  </p>
+
+  <p>
+    <strong>User:</strong>
+    <%= entry.user_id %>
+  </p>
+
+  <p>
+    <strong>Amount:</strong>
+    <%= entry.amount %>
+  </p>
+
+  <p>
+    <strong>Categories:</strong>
+    <%= entry.categories.map(&:name).join(', ') %>
+  </p>
+
+</div>
