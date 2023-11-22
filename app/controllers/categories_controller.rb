@@ -19,6 +19,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories/1/edit
   def edit
+    set_icons
   end
 
   # POST /categories or /categories.json

@@ -5,18 +5,30 @@
 <% if @total_amount %>
   <p>
     <strong>Total spent:</strong>
-    <%= @total_amount %>
+    $ <%= @total_amount %>
   </p>
 <% end %>
 
-<div id="entries">
-  <% @entries.each do |entry| %>
-    <%= render entry %>
-    <p>
-      <%= link_to "Show this entry", entry %>
-    </p>
-  <% end %>
-</div>
+<% if @entries.empty? %>
+  <p>No transactions yet</p>
+<% else%>
+  <table id="entries" class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Categories</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @entries.each do |entry| %>
+      <tr id="<%= dom_id entry %>">
+        <%= render entry %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
 
 <% if params[:category_id].present? %>
   <%= link_to "Add a new transaction entry", new_category_entry_path(params[:category_id]), class:'btn btn-primary' %>

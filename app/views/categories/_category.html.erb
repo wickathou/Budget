@@ -1,22 +1,28 @@
-<div id="<%= dom_id category %>">
-  <p>
-    <strong>Name:</strong>
-    <%= category.name %>
-  </p>
-
-  <p>
-    <strong>Icon:</strong>
+<div id="<%= dom_id category %>" class='d-flex'>
+  <div class='fs-1 d-flex align-items-center justify-content-center'%>
     <%= category.icon %>
-  </p>
-  
-  <p>
-    <strong>Entries:</strong>
-    <%= category.entries.map(&:name).join(', ') %>
-  </p>
+  </div>
+  <div class='ms-4 text-secondary'>
+    <p>
+      <strong>Name:</strong>
+      <%= category.name %>
+    </p>
+    
+    <p>
+      <strong>Entries:</strong>
+      <% if category.entries.any? %>
+        <% category.entries.each do |entry| %>
+          <%= link_to entry.name, entry %>
+        <% end %>
+      <% else %>
+        None yet, <%= link_to "add a transaction?", new_category_entry_path(category) %>
+      <% end %>
+    </p>
 
-  <p>
-    <strong>Total spent</strong>
-    <%= category.entries.sum(:amount) %>
-  </p>
+    <p>
+      <strong>Total spent</strong>
+      $<%= category.entries.sum(:amount) %>
+    </p>
+  </div>
 
 </div>

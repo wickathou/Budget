@@ -10,33 +10,46 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class='bg-light'>
     <header>
-      <nav class="navbar navbar-dark bg-primary">
-        <div class="container">
-          <a class="navbar-brand" href="/">Budget</a>
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <%= link_to "Entries", entries_path, class: "nav-link" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Categories", categories_path, class: "nav-link" %>
-            </li>
-            <li class="nav-item">
-              <% if user_signed_in? %>
-                <%= link_to "Sign out", destroy_user_session_path, method: :delete, 'data-turbo-method': :delete , class: "nav-link" %>
-              <% else %>
-                <%= link_to "Sign in", new_user_session_path , class: "nav-link" %>
-              <% end %>
-            </li>
-          </ul>
-        </div>
-      </nav>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="/">Budget</a>
+    
+    <!-- Toggle button for mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to "Entries", entries_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Categories", categories_path, class: "nav-link" %>
+        </li>
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "Edit profile", edit_user_registration_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign out", destroy_user_session_path, method: :delete, 'data-turbo-method': :delete , class: "nav-link" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Sign in", new_user_session_path , class: "nav-link" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
     </header>
-    <div class='container'>
+    <div class='container p-4'>
       <% if user_signed_in? %>
-        <p>Signed in as <%= current_user.name %></p>
-        <%= link_to "Back", "javascript:history.back()", class: 'btn btn-link'%>
+        <%= link_to "Back", "javascript:history.back()", class: 'btn btn-secondary'%>
       <% end %>
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
@@ -44,5 +57,10 @@
     <main class="container">
       <%= yield %>
     </main>
+    <footer class="container my-4">
+      <p>© <%= Date.today.year %> Budget |
+      made by <%= link_to "wickathou", "https://github.com/wickathou/" %>
+      </p>
+    </footer>
   </body>
 </html>

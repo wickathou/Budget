@@ -21,11 +21,12 @@ class EntriesController < ApplicationController
   def new
     @entry = Entry.new
     @entry.categories << Category.find(params[:category_id]) if params[:category_id].present?
-    @categories = Category.all.order(created_at: :desc).where(user_id: current_user.id)
+    set_categories
   end
 
   # GET /entries/1/edit
   def edit
+    set_categories
   end
 
   # POST /entries or /entries.json
@@ -75,6 +76,10 @@ class EntriesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_entry
       @entry = Entry.find(params[:id])
+    end
+
+    def set_categories
+      @categories = Category.all.order(created_at: :desc).where(user_id: current_user.id)
     end
 
     # Only allow a list of trusted parameters through.
