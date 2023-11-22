@@ -23,7 +23,7 @@
     <tbody>
     <% @entries.each do |entry| %>
       <tr id="<%= dom_id entry %>">
-        <%= render entry %>
+        <%= render partial: 'entry', locals: { entry: entry } %>
       </tr>
     <% end %>
     </tbody>
