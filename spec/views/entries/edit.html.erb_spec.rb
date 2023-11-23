@@ -1,25 +1,46 @@
 require 'rails_helper'
 
 RSpec.describe "entries/edit", type: :view do
-  let(:entry) {
-    Entry.create!(
-      name: "MyString",
-      user: nil
-    )
-  }
-
   before(:each) do
-    assign(:entry, entry)
+    User.delete_all
+    @user = User.create(name: 'Lily', email: 'lily@example.com', password: 'topsecret')
+    @category_one = Category.create(name: 'Fruit', icon: 'apple', user: @user)
+    @category_two = Category.create(name: 'Vegetable', icon: 'carrot', user: @user)
+    @entry = Entry.create(name: 'Apple', amount: 9.99, categories: [@category_one, @category_two], user: @user)
+    @categories = [@category_one, @category_two]
   end
-
   it "renders the edit entry form" do
     render
 
-    assert_select "form[action=?][method=?]", entry_path(entry), "post" do
+    expect(rendered).to have_selector('h1', text: 'Editing transaction')
+    
+    expect(rendered).to render_template(partial: '_form')
 
-      assert_select "input[name=?]", "entry[name]"
+    expect(rendered).to have_link("Show this transaction", href: entry_path(@entry), class: 'btn btn-link')
+    expect(rendered).to have_link("Back to transactions", href: entries_path, class: 'btn btn-link')
 
-      assert_select "input[name=?]", "entry[user_id]"
+    assert_select 'form[action=?][method=?]', entry_path(@entry), 'post' do
+      assert_select 'input[name=?]', 'entry[name]'
+      assert_select 'input[name=?]', 'entry[amount]'
+      
+      assert_select 'input[type=?]', 'checkbox' do
+        assert_select '[name=?]', 'entry[category_ids][]'
+      end
+
+      assert_select 'input[type=?]', 'submit'
+    end
+  end
+
+  context "when there are no categories" do
+    before(:each) do
+      @categories = assign(:categories, [])
+    end
+
+    it "displays a message about no categories and a link to add a new category" do
+      render
+
+      expect(rendered).to have_content("No categories yet")
+      expect(rendered).to have_link("Add a new category", href: new_category_path, class: 'btn btn-link')
     end
   end
 end

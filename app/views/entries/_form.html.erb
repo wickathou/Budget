@@ -21,11 +21,16 @@
 
   <div>
     <%= form.label :category_ids, class: "control-label"%>
-    <%= form.collection_check_boxes :category_ids, categories, :id, :icon_and_name, { class: "form-check-input" } do |cb| %>
-      <div class="form-check">
-        <%= cb.check_box class: "form-check-input" %>
-        <%= cb.label class: "form-check-label" %>
-      </div>
+    <% if categories.empty? %>
+      <p>No categories yet</p>
+      <%= link_to "Add a new category", new_category_path, class:'btn btn-link' %>
+    <% else %>
+      <%= form.collection_check_boxes :category_ids, categories, :id, :icon_and_name, { class: "form-check-input" } do |cb| %>
+        <div class="form-check">
+          <%= cb.check_box class: "form-check-input" %>
+          <%= cb.label class: "form-check-label" %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 

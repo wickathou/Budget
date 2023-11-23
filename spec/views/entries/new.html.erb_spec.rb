@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "entries/new", type: :view do
   before(:each) do
     assign(:entry, Entry.new)
-    assign(:categories, [Category.new(id: 1, name: "Category 1", icon: "icon1")]) # Adjust as needed
+    assign(:categories, [Category.new(id: 1, name: "Category 1", icon: "icon1")])
   end
 
   it "renders the new entry form" do

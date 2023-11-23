@@ -47,26 +47,19 @@ RSpec.describe "entries/index", type: :view do
   end
 
   context "when a category_id is present in params" do
-    before(:each) do
-      assign(:category_id, @category_one.id)
-    end
-
     it "displays a link to add a new transaction entry with the category_id" do
+      allow(view).to receive(:params).and_return(category_id: @category_one.id)
       render
 
       expect(rendered).to have_link("Add a new transaction entry", href: new_category_entry_path(@category_one.id), class: 'btn btn-primary')
     end
   end
 
-  # context "when there is no category_id in params" do
-  #   before(:each) do
-  #     assign(:category_id, nil)
-  #   end
+  context "when a category_id is NOT present in params" do
+    it "displays a link to add a new transaction entry without category_id" do
+      render
 
-  #   it "displays a link to add a new transaction entry without a category_id" do
-  #     render
-
-  #     expect(rendered).to have_link("Add a new transaction entry", href: new_entry_path, class: 'btn btn-primary')
-  #   end
-  # end
+      expect(rendered).to have_link("Add a new transaction entry", href: new_entry_path, class: 'btn btn-primary')
+    end
+  end
 end
