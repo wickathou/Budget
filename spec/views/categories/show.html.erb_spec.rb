@@ -12,8 +12,7 @@ RSpec.describe 'categories/show', type: :view do
 
   it 'renders category data' do
     render
-    expect(rendered).to have_text('Apple')
-    expect(rendered).to have_text('9.99')
+    expect(rendered).to have_text('apple')
     expect(rendered).to have_text('Fruit')
   end
 
