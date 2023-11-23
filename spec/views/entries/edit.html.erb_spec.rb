@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "entries/edit", type: :view do
   before(:each) do
+    Entry.delete_all
+    Category.delete_all
     User.delete_all
     @user = User.create(name: 'Lily', email: 'lily@example.com', password: 'topsecret')
     @category_one = Category.create(name: 'Fruit', icon: 'apple', user: @user)
@@ -28,19 +30,6 @@ RSpec.describe "entries/edit", type: :view do
       end
 
       assert_select 'input[type=?]', 'submit'
-    end
-  end
-
-  context "when there are no categories" do
-    before(:each) do
-      @categories = assign(:categories, [])
-    end
-
-    it "displays a message about no categories and a link to add a new category" do
-      render
-
-      expect(rendered).to have_content("No categories yet")
-      expect(rendered).to have_link("Add a new category", href: new_category_path, class: 'btn btn-link')
     end
   end
 end

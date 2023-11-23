@@ -8,9 +8,9 @@
   <% else %>
     <% @categories.each do |category| %>
       <div class='border rounded bg-white p-4 mb-4'>
-        <%= render category %>
-        <div>
-          <%= link_to "Show this category", category %> |
+        <%= render 'category', category: category %>
+        <div class='category-actions'>
+          <%= link_to "Show this category", category_path(category) %> |
           <%= link_to "Show all transactions", category_entries_path(category) %>
         </div>
       </div>

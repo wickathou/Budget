@@ -3,26 +3,27 @@
     <%= category.icon %>
   </div>
   <div class='ms-4 text-secondary'>
-    <p>
-      <strong>Name:</strong>
-      <%= category.name %>
-    </p>
+    <div class='d-flex category-name'>
+      <strong class='me-1'>Name:</strong>
+      <p><%= category.name %></p>
+    </div>
     
-    <p>
-      <strong>Entries:</strong>
+    <div class='d-flex'>
+      <strong class='me-1'>Entries:</strong>
       <% if category.entries.any? %>
         <% category.entries.each do |entry| %>
-          <%= link_to entry.name, entry %>
+          <%= link_to entry.name, entry, class:'me-1' %>
         <% end %>
       <% else %>
-        None yet, <%= link_to "add a transaction?", new_category_entry_path(category) %>
+        <p class='me-1'>None yet, </p>
+        <%= link_to "add a transaction?", new_entry_path %>
       <% end %>
-    </p>
+    </div>
 
-    <p>
-      <strong>Total spent</strong>
-      $<%= category.entries.sum(:amount) %>
-    </p>
+    <div class='d-flex'>
+      <strong class='me-1'>Total spent</strong>
+      <p>$<%= category.entries.sum(:amount) %></p>
+    </div>
   </div>
 
 </div>

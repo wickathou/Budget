@@ -2,7 +2,6 @@ class EntriesController < ApplicationController
   load_and_authorize_resource
   before_action :set_entry, only: %i[ show edit update destroy ]
 
-  # GET /entries or /entries.json
   def index
     if params[:category_id].present?
       category = Category.find(params[:category_id])
@@ -13,23 +12,19 @@ class EntriesController < ApplicationController
     end
   end
 
-  # GET /entries/1 or /entries/1.json
   def show
   end
 
-  # GET /entries/new
   def new
     @entry = Entry.new
     @entry.categories << Category.find(params[:category_id]) if params[:category_id].present?
     set_categories
   end
 
-  # GET /entries/1/edit
   def edit
     set_categories
   end
 
-  # POST /entries or /entries.json
   def create
     @entry = Entry.new(entry_params)
     @entry.user = current_user
@@ -49,7 +44,6 @@ class EntriesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /entries/1 or /entries/1.json
   def update
     respond_to do |format|
       if @entry.update(entry_params)
@@ -62,7 +56,6 @@ class EntriesController < ApplicationController
     end
   end
 
-  # DELETE /entries/1 or /entries/1.json
   def destroy
     @entry.destroy!
 
@@ -73,7 +66,6 @@ class EntriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_entry
       @entry = Entry.find(params[:id])
     end
@@ -82,7 +74,6 @@ class EntriesController < ApplicationController
       @categories = Category.all.order(created_at: :desc).where(user_id: current_user.id)
     end
 
-    # Only allow a list of trusted parameters through.
     def entry_params
       params.require(:entry).permit(:name, :amount, category_ids: [])
     end

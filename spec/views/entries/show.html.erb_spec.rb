@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "entries/show", type: :view do
   before(:each) do
+    Entry.delete_all
+    Category.delete_all
     User.delete_all
     @user = User.create(name: 'Lily', email: 'lily@example.com', password: 'topsecret')
     @category = Category.create(name: 'Fruit', icon: 'apple', user: @user)

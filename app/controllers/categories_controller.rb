@@ -2,27 +2,22 @@ class CategoriesController < ApplicationController
   load_and_authorize_resource
   before_action :set_category, only: %i[ show edit update destroy ]
 
-  # GET /categories or /categories.json
   def index
     @categories = Category.all.includes(:entries).order(created_at: :desc).where(user_id: current_user.id)
   end
 
-  # GET /categories/1 or /categories/1.json
   def show
   end
 
-  # GET /categories/new
   def new
     @category = Category.new
     set_icons
   end
 
-  # GET /categories/1/edit
   def edit
     set_icons
   end
 
-  # POST /categories or /categories.json
   def create
     @category = Category.new(category_params)
     @category.user = current_user
@@ -38,7 +33,6 @@ class CategoriesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /categories/1 or /categories/1.json
   def update
     respond_to do |format|
       if @category.update(category_params)
@@ -51,7 +45,6 @@ class CategoriesController < ApplicationController
     end
   end
 
-  # DELETE /categories/1 or /categories/1.json
   def destroy
     @category.destroy!
 
@@ -62,7 +55,6 @@ class CategoriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_category
       @category = Category.find(params[:id])
     end
@@ -71,7 +63,6 @@ class CategoriesController < ApplicationController
       @icons = ['🏛️','🍴','🏠', '🏫','🗑️', '🧾', '💰', '🍹', '✈️', '🚗', '🚇']
     end
 
-    # Only allow a list of trusted parameters through.
     def category_params
       params.require(:category).permit(:name, :icon, :user_id)
     end

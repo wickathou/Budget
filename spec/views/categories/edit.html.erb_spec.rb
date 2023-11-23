@@ -1,28 +1,30 @@
 require 'rails_helper'
 
 RSpec.describe "categories/edit", type: :view do
-  let(:category) {
-    Category.create!(
-      name: "MyString",
-      icon: "MyString",
-      user: nil
-    )
-  }
-
   before(:each) do
-    assign(:category, category)
+    Entry.delete_all
+    Category.delete_all
+    User.delete_all
+    @user = User.create(name: 'Lily', email: 'lily@example.com', password: 'topsecret')
+    @category = Category.create(name: 'Fruit', icon: 'apple', user: @user)
+    assign(:icons, ['🏛️','🍴','🏠', '🏫','🗑️', '🧾', '💰', '🍹', '✈️', '🚗', '🚇'])
   end
 
-  it "renders the edit category form" do
+  it "renders the new category form" do
     render
+    
+    expect(rendered).to have_selector('h1', text: 'Editing category')
 
-    assert_select "form[action=?][method=?]", category_path(category), "post" do
+    expect(rendered).to render_template(partial: '_form')
 
-      assert_select "input[name=?]", "category[name]"
+    expect(rendered).to have_link("Back to categories", href: categories_path)
 
-      assert_select "input[name=?]", "category[icon]"
+    assert_select 'form[action=?][method=?]', category_path(@category), 'post' do
+      assert_select 'input[name=?]', 'category[name]'
+      
+      assert_select 'select[name=?]', 'category[icon]'
 
-      assert_select "input[name=?]", "category[user_id]"
+      assert_select 'input[type=?]', 'submit'
     end
   end
 end

@@ -4,7 +4,11 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   rescue_from CanCan::AccessDenied do | exception |
-    redirect_to root_url, alert: exception.message
+    if current_user.nil?
+      redirect_to unauthenticated_root_url, alert: exception.message
+    else
+      redirect_to authenticated_root_url, alert: exception.message
+    end
   end
   
   protected

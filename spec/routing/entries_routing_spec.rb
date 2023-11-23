@@ -1,6 +1,15 @@
 require "rails_helper"
 
 RSpec.describe EntriesController, type: :routing do
+  before(:each) do
+    Entry.delete_all
+    Category.delete_all
+    User.delete_all
+    @user = User.create(name: 'Lily', email: 'lily@example.com', password: 'topsecret')
+    @category = Category.create(name: 'Fruit', icon: 'apple', user: @user)
+    @entry = Entry.create(name: 'Apple', amount: 9.99, categories: [@category], user: @user)
+  end
+  
   describe "routing" do
     it "routes to #index" do
       expect(get: "/entries").to route_to("entries#index")
