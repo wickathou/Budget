@@ -19,7 +19,7 @@ RSpec.describe "entries/index", type: :view do
 
     expect(rendered).to have_selector('table#entries')
 
-    expect(rendered).to have_link("Add a new transaction entry", href: new_entry_path, class: 'btn btn-primary')
+    expect(rendered).to have_link("Add a new transaction entry", href: new_entry_path, class: 'btn btn-success')
 
     assert_select 'table#entries tbody tr' do
       assert_select 'th a', text: 'Tomato', href: entry_path(Entry.first)
@@ -51,7 +51,7 @@ RSpec.describe "entries/index", type: :view do
       allow(view).to receive(:params).and_return(category_id: @category_one.id)
       render
 
-      expect(rendered).to have_link("Add a new transaction entry", href: new_category_entry_path(@category_one.id), class: 'btn btn-primary')
+      expect(rendered).to have_link("Add a new transaction entry", href: new_category_entry_path(@category_one.id), class: 'btn btn-success')
     end
   end
 
@@ -59,7 +59,7 @@ RSpec.describe "entries/index", type: :view do
     it "displays a link to add a new transaction entry without category_id" do
       render
 
-      expect(rendered).to have_link("Add a new transaction entry", href: new_entry_path, class: 'btn btn-primary')
+      expect(rendered).to have_link("Add a new transaction entry", href: new_entry_path, class: 'btn btn-success')
     end
   end
 end

@@ -31,7 +31,7 @@
 <% end %>
 
 <% if params[:category_id].present? %>
-  <%= link_to "Add a new transaction entry", new_category_entry_path(params[:category_id]), class:'btn btn-primary' %>
+  <%= link_to "Add a new transaction entry", new_category_entry_path(params[:category_id]), class:'btn btn-success' %>
 <% else %>
-  <%= link_to "Add a new transaction entry", new_entry_path, class:'btn btn-primary' %>
+  <%= link_to "Add a new transaction entry", new_entry_path, class:'btn btn-success' %>
 <% end %>

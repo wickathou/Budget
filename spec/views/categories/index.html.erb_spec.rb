@@ -15,7 +15,7 @@ RSpec.describe "categories/index", type: :view do
     assert_select '#categories' do
       assert_select 'p', text: 'No categories yet'
     end
-    assert_select 'a.btn.btn-primary', text: 'Add new category'
+    assert_select 'a.btn.btn-success', text: 'Add new category'
   end
 
   context 'with categories' do
@@ -42,7 +42,7 @@ RSpec.describe "categories/index", type: :view do
           end
         end
       end
-      assert_select 'a.btn.btn-primary', text: 'Add new category'
+      assert_select 'a.btn.btn-success', text: 'Add new category'
     end
   end
 end
