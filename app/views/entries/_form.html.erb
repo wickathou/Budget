@@ -1,7 +1,7 @@
-<%= form_with(model: entry) do |form| %>
+<%= form_with(model: entry, **(params[:category_id].present? ? { url: category_entries_path(params[:category_id]), local: true } : {})) do |form| %>
   <% if entry.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(entry.errors.count, "error") %> prohibited this entry from being saved:</h2>
+      <h2><%= pluralize(entry.errors.count, "error") %> prohibited this transaction from being saved:</h2>
 
       <ul>
         <% entry.errors.each do |error| %>
@@ -12,20 +12,29 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, placeholder: 'Name', class: "form-control" %>
   </div>
 
   <div>
-    <%= form.label :amount, style:"display: block"%>
-    <%= form.number_field :amount, step: '0.01' %>
-
-  <div>
-    <%= form.label :category_ids, style: "display: block" %>
-    <%= form.collection_check_boxes :category_ids, Category.all, :id, :name, prompt: "Select a category", class: "form-control" %>
+    <%= form.number_field :amount, step: '0.01', placeholder: 'Amount', class: "form-control" %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.label :category_ids, class: "control-label"%>
+    <% if categories.empty? %>
+      <p>No categories yet</p>
+      <%= link_to "Add a new category", new_category_path, class:'btn btn-link' %>
+    <% else %>
+      <%= form.collection_check_boxes :category_ids, categories, :id, :icon_and_name, { class: "form-check-input" } do |cb| %>
+        <div class="form-check">
+          <%= cb.check_box class: "form-check-input" %>
+          <%= cb.label class: "form-check-label" %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit 'Save', class: "btn btn-success" %>
   </div>
 <% end %>

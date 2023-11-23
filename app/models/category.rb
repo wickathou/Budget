@@ -4,4 +4,8 @@ class Category < ApplicationRecord
   validates :name, presence: true, length: { maximum: 50 }
   validates :icon, presence: true
   validates :user_id, presence: true
+
+  def icon_and_name
+    "#{icon} #{name}"
+  end
 end

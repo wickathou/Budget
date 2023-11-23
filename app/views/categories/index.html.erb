@@ -3,12 +3,23 @@
 <h1>Categories</h1>
 
 <div id="categories">
-  <% @categories.each do |category| %>
-    <%= render category %>
-    <p>
-      <%= link_to "Show this category", category %>
-    </p>
+  <% if @categories.empty? %>
+    <p>No categories yet</p>
+  <% else %>
+    <% @categories.each do |category| %>
+      <div class='border rounded bg-white p-4 mb-4'>
+        <% if @entries_available %>
+          <%= render 'category', category: category, entries: category.entries %>
+        <% else %>
+          <%= render 'category', category: category, entries: [] %>
+        <% end %>
+        <div class='category-actions'>
+          <%= link_to "Show this category", category_path(category) %> |
+          <%= link_to "Show all transactions", category_entries_path(category) %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 </div>
 
-<%= link_to "New category", new_category_path %>
+<%= link_to "Add new category", new_category_path, class:'btn btn-success' %>

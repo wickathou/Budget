@@ -1,24 +1,26 @@
 require 'rails_helper'
 
-RSpec.describe "categories/new", type: :view do
+RSpec.describe 'categories/new', type: :view do
   before(:each) do
-    assign(:category, Category.new(
-      name: "MyString",
-      icon: "MyString",
-      user: nil
-    ))
+    assign(:category, Category.new)
+    assign(:icons, ['🏛️', '🍴', '🏠', '🏫', '🗑️', '🧾', '💰', '🍹', '✈️', '🚗', '🚇'])
   end
 
-  it "renders new category form" do
+  it 'renders the new category form' do
     render
 
-    assert_select "form[action=?][method=?]", categories_path, "post" do
+    expect(rendered).to have_selector('h1', text: 'New category')
 
-      assert_select "input[name=?]", "category[name]"
+    expect(rendered).to render_template(partial: '_form')
 
-      assert_select "input[name=?]", "category[icon]"
+    expect(rendered).to have_link('Back to categories', href: categories_path)
 
-      assert_select "input[name=?]", "category[user_id]"
+    assert_select 'form[action=?][method=?]', categories_path, 'post' do
+      assert_select 'input[name=?]', 'category[name]'
+
+      assert_select 'select[name=?]', 'category[icon]'
+
+      assert_select 'input[type=?]', 'submit'
     end
   end
 end
