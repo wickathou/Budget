@@ -10,8 +10,8 @@
     
     <div class='d-flex'>
       <strong class='me-1'>Entries:</strong>
-      <% if category.entries.any? %>
-        <% category.entries.each do |entry| %>
+      <% if entries.any? %>
+        <% entries.each do |entry| %>
           <%= link_to entry.name, entry, class:'me-1' %>
         <% end %>
       <% else %>
@@ -22,7 +22,7 @@
 
     <div class='d-flex'>
       <strong class='me-1'>Total spent</strong>
-      <p>$<%= category.entries.sum(:amount) %></p>
+      <p>$<%= entries.sum(:amount) %></p>
     </div>
   </div>
 

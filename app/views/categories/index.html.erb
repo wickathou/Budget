@@ -8,7 +8,11 @@
   <% else %>
     <% @categories.each do |category| %>
       <div class='border rounded bg-white p-4 mb-4'>
-        <%= render 'category', category: category %>
+        <% if @entries_available %>
+          <%= render 'category', category: category, entries: category.entries %>
+        <% else %>
+          <%= render 'category', category: category, entries: [] %>
+        <% end %>
         <div class='category-actions'>
           <%= link_to "Show this category", category_path(category) %> |
           <%= link_to "Show all transactions", category_entries_path(category) %>

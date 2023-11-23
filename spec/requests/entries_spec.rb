@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-
-RSpec.describe "/entries", type: :feature do
+RSpec.describe '/entries', type: :feature do
   before(:each) do
     Entry.delete_all
     Category.delete_all

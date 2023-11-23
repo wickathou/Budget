@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "entries/show", type: :view do
+RSpec.describe 'entries/show', type: :view do
   before(:each) do
     Entry.delete_all
     Category.delete_all
@@ -10,14 +10,14 @@ RSpec.describe "entries/show", type: :view do
     @entry = Entry.create(name: 'Apple', amount: 9.99, categories: [@category], user: @user)
   end
 
-  it "renders entry data" do
+  it 'renders entry data' do
     render
     expect(rendered).to have_text('Apple')
     expect(rendered).to have_text('9.99')
     expect(rendered).to have_text('Fruit')
   end
 
-  it "renders actions to edit, back and destroy" do
+  it 'renders actions to edit, back and destroy' do
     render
     expect(rendered).to have_link('Edit this entry', href: edit_entry_path(@entry))
     expect(rendered).to have_link('Back to entries', href: entries_path)

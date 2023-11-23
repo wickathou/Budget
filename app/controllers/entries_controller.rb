@@ -1,6 +1,6 @@
 class EntriesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_entry, only: %i[ show edit update destroy ]
+  before_action :set_entry, only: %i[show edit update destroy]
 
   def index
     if params[:category_id].present?
@@ -12,8 +12,7 @@ class EntriesController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @entry = Entry.new
@@ -32,9 +31,11 @@ class EntriesController < ApplicationController
     respond_to do |format|
       if @entry.save
         if params[:category_id].present?
-          format.html { redirect_to category_entries_url(params[:category_id]), notice: "Entry was successfully created." }
+          format.html do
+            redirect_to category_entries_url(params[:category_id]), notice: 'Entry was successfully created.'
+          end
         else
-          format.html { redirect_to entry_url(@entry), notice: "Entry was successfully created." }
+          format.html { redirect_to entry_url(@entry), notice: 'Entry was successfully created.' }
         end
         format.json { render :show, status: :created, location: @entry }
       else
@@ -47,7 +48,7 @@ class EntriesController < ApplicationController
   def update
     respond_to do |format|
       if @entry.update(entry_params)
-        format.html { redirect_to entry_url(@entry), notice: "Entry was successfully updated." }
+        format.html { redirect_to entry_url(@entry), notice: 'Entry was successfully updated.' }
         format.json { render :show, status: :ok, location: @entry }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -60,21 +61,22 @@ class EntriesController < ApplicationController
     @entry.destroy!
 
     respond_to do |format|
-      format.html { redirect_to entries_url, notice: "Entry was successfully destroyed." }
+      format.html { redirect_to entries_url, notice: 'Entry was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    def set_entry
-      @entry = Entry.find(params[:id])
-    end
 
-    def set_categories
-      @categories = Category.all.order(created_at: :desc).where(user_id: current_user.id)
-    end
+  def set_entry
+    @entry = Entry.find(params[:id])
+  end
 
-    def entry_params
-      params.require(:entry).permit(:name, :amount, category_ids: [])
-    end
+  def set_categories
+    @categories = Category.all.order(created_at: :desc).where(user_id: current_user.id)
+  end
+
+  def entry_params
+    params.require(:entry).permit(:name, :amount, category_ids: [])
+  end
 end

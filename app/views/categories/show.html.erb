@@ -1,5 +1,8 @@
-<%= render @category %>
-
+<% if @entries_available %>
+  <%= render 'category', category: @category, entries: @entries %>
+<% else %>
+  <%= render 'category', category: @category, entries: [] %>
+<% end %>
 <div>
   <%= link_to "Edit this category", edit_category_path(@category), class: 'btn btn-link' %> |
   <%= link_to "Back to categories", categories_path, class: 'btn btn-link' %>

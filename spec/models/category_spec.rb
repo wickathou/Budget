@@ -11,7 +11,7 @@ RSpec.describe Category, type: :model do
   it 'is valid entry' do
     expect(Category.create(name: 'Fruit', icon: 'apple', user: @user)).to be_valid
   end
-  
+
   it 'is not valid with blank name' do
     expect(Category.create(icon: 'apple', user: @user)).to_not be_valid
   end
