@@ -13,7 +13,13 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @entries = Category.find(params[:id]).entries.order(created_at: :desc).where(user_id: current_user.id)
+    @entries_available = false
+    if Entry.all.where(user_id: current_user.id).empty?
+      @entries = []
+    else
+      @entries_available = true
+      @entries = Category.find(params[:id]).entries.order(created_at: :desc).where(user_id: current_user.id)
+    end
   end
 
   def new
