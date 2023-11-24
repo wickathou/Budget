@@ -29,7 +29,7 @@
 
 # 📖 Budget <a name="budget"></a>
 
-**Budget** is a budgeting app build with rails, this is the capstone project for the Rails module, part of Microverse.org Fullstack program
+**Budget** is a budgeting app build with rails, this is the capstone project for the Rails module, part of Microverse.org Fullstack program. This app uses [Gregoire Vella's app design concepts](https://www.behance.net/gregoirevella)
 
 [Live Demo](https://budget-utho.onrender.com/)
 
@@ -78,6 +78,9 @@ Clone this repository to your desired folder:
 
 Install the required gems
 `bundle install`
+
+Precompile bootstrap and app assets
+`rails assets:precompile`
 
 Create the database by running the command
 `rails db:create`
@@ -129,6 +132,8 @@ Leave a ⭐️ if you like this project!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
+
+- [Gregoire Vella](https://www.behance.net/gregoirevella) for the design
 
 - [Microverse](https://www.microverse.org/)
 
