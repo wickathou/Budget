@@ -31,6 +31,10 @@
 
 **Budget** is a budgeting app build with rails, this is the capstone project for the Rails module, part of Microverse.org Fullstack program
 
+[Live Demo](https://budget-utho.onrender.com/)
+
+[Loom video walkthrough](https://www.loom.com/share/174976d4be1b498582735f140add107c?sid=71a18472-beb5-4526-895b-a3f786c3bf11)
+
 ## 🛠 Built With <a name="built-with"></a>
 
 ### Tech Stack <a name="tech-stack"></a>
